@@ -219,7 +219,7 @@ test("panel buttons use bold 24px icons drawn for small sizes", () => {
     const icon = readFileSync(join(root, path), "utf8");
     assert.match(icon, /viewBox="0 0 24 24"/, id);
     assert.match(icon, /stroke-width="2"/, id);
-    assert.match(icon, /stroke="#1A6490"/, id);
+    assert.match(icon, /stroke="#0E4A70"/, id);
     assert.ok(!icon.includes("<rect"), `${id} must not waste pixels on a frame`);
   }
   assert.ok(tabs.includes(".child(image(icon).size(24).flex_none())"));

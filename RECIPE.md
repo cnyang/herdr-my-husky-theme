@@ -7,7 +7,7 @@
 
 左側 190px，可收合。頂部 46px 雙犬徽章與 Herdr 字樣，中間上方 Spaces、下方角色卡，底部 69px 設定列。
 右側 48px 頭像分頁列、終端／檔案等面板、28px 狀態列。
-主底 `#F5F8FB`、卡片 `#DDE7EF`、邊框 `#6F879B`，冰藍焦點、琥珀等待提示。
+主底 `#D3DDE6`、卡片 `#BAC8D4`、邊框 `#526B80`，冰藍焦點、琥珀等待提示。
 每張角色卡使用 72×96 圖片；兩隻狗的白胸口靠淡藍灰卡片與背景分開，卡片不可改純白。
 
 ## How it behaves
@@ -22,7 +22,7 @@ Tab 從 10 張頭像隨機配圖，以 Tab ID 保存。
 `layouts/husky.json` 的 root row 包含 sidebar column 與 work column，
 sidebar 使用 `husky-chrome`、`husky-spaces`、`husky-agents`；work 使用 `husky-tabs`、
 Herdr 內建 pane／workspace-status，以及 husky-files／husky-changes／husky-inbox／husky-git-graph。
-側欄與面板共用 `husky-chrome/sidebar.png`。美術由 `scripts/build-art.mjs` 從 `artwork/` 產生。
+側欄與面板共用 `husky-chrome/sidebar-v4.png`。美術由 `scripts/build-art.mjs` 從 `artwork/` 產生。
 
 ## Watch out
 

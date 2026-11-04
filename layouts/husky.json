@@ -73,7 +73,7 @@
       "min": 44,
       "max": 480,
       "background": {
-        "image": "mods/husky-chrome/sidebar.png",
+        "image": "mods/husky-chrome/sidebar-v4.png",
         "fit": "cover"
       },
       "resizable": false
@@ -176,7 +176,7 @@
               "max": 900,
               "hidden": true,
               "background": {
-                "image": "mods/husky-chrome/sidebar.png",
+                "image": "mods/husky-chrome/sidebar-v4.png",
                 "fit": "cover"
               },
               "radius": 8

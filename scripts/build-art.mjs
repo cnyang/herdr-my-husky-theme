@@ -1,6 +1,6 @@
 // 由 artwork/ 原圖產生 mods/ 內所有 PNG；需要 ImageMagick（magick）。
 import { execFileSync } from "node:child_process";
-import { copyFileSync, mkdirSync } from "node:fs";
+import { mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -9,8 +9,12 @@ const art = name => join(root, "artwork", name);
 const out = path => { const file = join(root, "mods", path); mkdirSync(dirname(file), { recursive: true }); return file; };
 const magick = (...args) => execFileSync("magick", args.flat(), { maxBuffer: 1 << 26 });
 
-const CARD = "#DDE7EF"; // 與 theme surface 相同，透明像素的隱藏 RGB 也填這色，縮放時不滲色。
+const CARD = "#BAC8D4"; // 與 theme surface 相同，透明像素的隱藏 RGB 也填這色，縮放時不滲色。
 const CLEAN = ["-channel", "A", "-level", "8%,100%", "+channel", "-background", "none", "-alpha", "background", "-bordercolor", "none", "-border", "1", "-trim", "+repage"];
+// 背景圖整體降亮度。側欄節點背景圖只換內容不會更新，改數值後要連 sidebar-vN 檔名一起換。
+const DIM = ["-modulate", "82"];
+// 側欄混入主題底色壓低對比與藍色調，讓亮度接近終端區（0.87）。
+const THEME_BG = "#D3DDE6";
 const FINISH = ["-background", CARD, "-alpha", "background", "-strip", "-define", "png:color-type=6"];
 
 // 雪地會跨過等分線，所以取搜尋範圍內 alpha 總量最低的欄當切線。
@@ -48,8 +52,8 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   grid("space-badges.png", ["paw", "sled", "moon", "snowflake"].map(n => `husky-spaces/art/${n}.png`));
   grid("panel-icons.png", ["crate", "tracks", "satchel", "signpost"].map(n => `husky-spaces/art/${n}.png`));
   magick(art("brand-emblem.png"), CLEAN, "-resize", "248x248", "-background", "none", "-gravity", "center", "-extent", "256x256", FINISH, out("husky-chrome/brand-emblem.png"));
-  magick(art("sidebar.png"), "-gravity", "center", "-crop", "653x1672+0+0", "+repage", "-resize", "400x1024!", "-strip", out("husky-chrome/sidebar.png"));
-  copyFileSync(art("terminal-background.png"), out("husky-chrome/terminal-background.png"));
+  magick(art("sidebar.png"), "-gravity", "center", "-crop", "653x1672+0+0", "+repage", "-resize", "400x1024!", ...DIM, "-fill", THEME_BG, "-colorize", "75", "-strip", out("husky-chrome/sidebar-v4.png"));
+  magick(art("terminal-background.png"), ...DIM, "-strip", out("husky-chrome/terminal-background.png"));
   // 頭像座標是人工框的頭部；一三五七九為肉丸，其餘為樂晴。
   const tab = n => `husky-tabs/art/portrait-${String(n).padStart(2, "0")}.png`;
   portrait("meatball-rest.png", [170, 45, 300], tab(1), "husky-agents/art/meatball.png");
