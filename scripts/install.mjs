@@ -8,7 +8,7 @@ const target = process.env.HERDR_APP_HOME || join(homedir(), ".config", "herdr-a
 const files = [
   "mods/husky-agents", "mods/husky-tabs", "mods/husky-spaces", "mods/husky-chrome",
   "mods/husky-files", "mods/husky-changes", "mods/husky-inbox", "mods/husky-git-graph",
-  "mods/file-icons", "layouts/husky.json", "layouts/husky.svg", "themes/husky.json",
+  "mods/husky-music", "mods/husky-lyrics", "mods/file-icons", "layouts/husky.json", "layouts/husky.svg", "themes/husky.json",
 ];
 const update = process.argv.includes("--update");
 // file-icons 與其他主題共用：已存在就保留（不算撞名），只有 --update 才覆蓋
@@ -29,4 +29,4 @@ for (const file of files) if (update || !shared.includes(file) || !existsSync(jo
   filter: path => !/(?:gpui-kit\.d\.ts|herdr\.d\.ts|jsconfig\.json)$/.test(path),
 });
 console.log(`${update ? "Updated" : "Installed"} Husky in ${target}`);
-console.log('Next: check all eight mods, then herdr-app do layout.switch \'{"name":"husky"}\'');
+console.log('Next: check all ten mods, then herdr-app do layout.switch \'{"name":"husky"}\'');

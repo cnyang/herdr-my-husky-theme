@@ -45,7 +45,7 @@ node scripts/install.mjs
 herdr-app do layout.switch '{"name":"husky"}'
 ```
 
-安裝只新增八個 `husky-*` 模組、layout 與 theme，撞名就停止；更新用 `node scripts/install.mjs --update`。
+安裝只新增十個 `husky-*` 模組、layout 與 theme，撞名就停止；更新用 `node scripts/install.mjs --update`。
 其他 layout 可從 Settings 或 `ctrl-shift-l` 選擇。
 
 程式寫死給深色背景的顏色（Claude Code 深色主題、starship 的 Dracula 色）在淺底上會太淡。
@@ -65,5 +65,13 @@ herdr-app do layout.switch '{"name":"husky"}'
 - Spaces 沿用 Traveler 的 `git status`、`git rev-parse` 和 `hc machine ls` 查詢。
 - Space 徽章按顯示順序循環：肉球 → 雪橇 → 月山 → 雪花。主機標題與工作樹子列不計入。
 - Watch 面板監看 `~/Downloads/` 第一層已下載完的檔案（內部 id 仍是 `inbox`）。
+- 側欄底部的 Apple Music 區塊（`husky-music`，僅 macOS）：沒歌時高度 0，有歌時長出曲名、時間、進度條與上一首／倒退 10 秒／播放暫停／快轉 10 秒／下一首。
+  一個長駐 `osascript` daemon（herdr-core 終端 `hpm-<雜湊>`）每秒讀 Music 並寫 `data/husky-music/state.json`，按鈕寫 `cmd.json`。
+  第一次會跳出「允許控制 Music」的系統授權；若拒絕，區塊改顯示提示列，到系統設定 > 隱私權與安全性 > 自動化開啟。側欄收成窄條時區塊自動縮為 0。
+- 右側分頁列的 Lyrics 按鈕（音符圖示）打開歌詞面板（`husky-lyrics`）：顯示目前這首歌的歌詞，向自架的 lrclib 查詢。
+  先 `/api/get` 精確比對、404 再 `/api/search`（做法取自 MusicTUI）；有時間軸的歌詞高亮目前這句並置中，純文字歌詞可自己捲動。
+  端點讀 `~/.config/music/lyrics.json` 的 `{"endpoint": "http://host:3300"}`（與 MusicTUI 共用）；沒設定就顯示提示，不會退回公開的 lrclib.net。
+  曲目與位置取自音樂 daemon 的 `state.json`；面板關著時完全不讀檔、不連網。每首歌每次執行只查一次，連不上的 15 秒後重試。
+  用 `curl` 連線（Herdr 的 `fetch` 沒有逾時設定），句子過長會截斷，不換行。
 - 工作姿態由時間決定，不代表 agent 實際在做什麼；沒有獨立 Thinking 狀態或逐格動畫。
 - 上游程式碼來源、授權及素材範圍見 `NOTICE.md`。
