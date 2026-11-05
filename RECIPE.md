@@ -21,7 +21,7 @@ Tab 從 10 張頭像隨機配圖，以 Tab ID 保存。
 
 `layouts/husky.json` 的 root row 包含 sidebar column 與 work column，
 sidebar 使用 `husky-chrome`、`husky-spaces`、`husky-agents`；work 使用 `husky-tabs`、
-Herdr 內建 pane／workspace-status，外部的 file-icons（Files 面板），以及 husky-changes／husky-inbox／husky-git-graph。
+Herdr 內建 pane／workspace-status，隨附的 mods/file-icons（Files 面板，底色透明度由 layout 的 props.alpha 決定，這裡是 00），以及 husky-changes／husky-inbox／husky-git-graph。
 側欄與面板共用 `husky-chrome/sidebar-v4.png`。美術由 `scripts/build-art.mjs` 從 `artwork/` 產生。
 
 ## Watch out
