@@ -233,6 +233,14 @@ test("layout has unique IDs, valid theme, all local art and mod references", () 
     if (!value || typeof value !== "object") return;
     if (value.id) { assert.ok(!ids.has(value.id), `Duplicate node: ${value.id}`); ids.add(value.id); }
     if (value.mod?.startsWith("husky-")) assert.ok(existsSync(join(root, "mods", value.mod, "main.js")));
+    // Files 面板改用外部的 file-icons mod(Material Icon Theme 圖示),不再用 husky-files
+    if (value.id === "files") {
+      assert.equal(value.content.mod, "file-icons");
+      // 面板背景圖很淺,60% 底色幾乎不透;alpha 必須低於預設的 0x99 才看得出半透明
+      const alpha = value.content.props?.alpha;
+      assert.match(alpha, /^[\da-f]{2}$/i);
+      assert.ok(parseInt(alpha, 16) < 0x99, `alpha ${alpha} must be below 99`);
+    }
     if (value.image) assert.ok(existsSync(join(root, value.image)), value.image);
     Object.values(value).forEach(visit);
   }
@@ -270,10 +278,15 @@ test("installer refuses missing dependencies and name collisions before copying"
   try {
     assert.notEqual(install().status, 0);
     assert.ok(!existsSync(join(target, "mods/husky-agents")));
-    for (const name of ["pane", "files", "changes", "workspace-status", "menu", "new-menu", "picker", "machine-add", "workspace-chrome", "inbox", "git-graph"]) {
+    const fixture = name => {
       mkdirSync(join(target, "mods", name), { recursive: true });
       writeFileSync(join(target, "mods", name, "main.js"), "fixture");
-    }
+    };
+    for (const name of ["pane", "files", "changes", "workspace-status", "menu", "new-menu", "picker", "machine-add", "workspace-chrome", "inbox", "git-graph"]) fixture(name);
+    // 缺 file-icons 時必須擋下，否則 layout 的 Files 面板會整個空白
+    assert.notEqual(install().status, 0);
+    assert.ok(!existsSync(join(target, "mods/husky-agents")));
+    fixture("file-icons");
     const result = install();
     assert.equal(result.status, 0, result.stderr);
     assert.ok(existsSync(join(target, "themes/husky.json")));
