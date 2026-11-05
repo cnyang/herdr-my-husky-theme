@@ -16,6 +16,7 @@
 `done` 吐舌笑，綠色狀態；`idle` 閉眼休息。未知狀態回到休息姿態。
 agent 與狗的配對以位址存在 localStorage，重畫或排序不換狗；新 agent 分給較少的那隻。
 右側 Lyrics 按鈕開啟歌詞面板：讀音樂 daemon 的 `state.json`，向 `~/.config/music/lyrics.json` 指定的 lrclib 查詢，同步歌詞高亮並置中。
+右側 Note 按鈕開啟筆記面板：Edit／Preview 切換的 markdown 筆記，存 `data/theme-notes/note.md`，兩個 theme 共用。
 Tab 從 10 張頭像隨機配圖，以 Tab ID 保存。
 
 ## Built from
@@ -35,6 +36,6 @@ Herdr 內建 pane／workspace-status，隨附的 mods/file-icons（Files 面板�
 ## Done when
 
 1. `node --test` 與 `node scripts/lint.mjs` 通過。
-2. 十個 `herdr-app check` 通過。
+2. 十一個 `herdr-app check` 通過。
 3. 切換後 `herdr-app status` 沒有新模組錯誤，截圖可見兩隻狗、徽章與淺色面板。
 4. 終端文字疊在雪原與狗身上仍清楚可讀。

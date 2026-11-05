@@ -45,7 +45,7 @@ node scripts/install.mjs
 herdr-app do layout.switch '{"name":"husky"}'
 ```
 
-安裝只新增十個 `husky-*` 模組、layout 與 theme，撞名就停止；更新用 `node scripts/install.mjs --update`。
+安裝只新增十一個 `husky-*` 模組、layout 與 theme，撞名就停止；更新用 `node scripts/install.mjs --update`。
 其他 layout 可從 Settings 或 `ctrl-shift-l` 選擇。
 
 程式寫死給深色背景的顏色（Claude Code 深色主題、starship 的 Dracula 色）在淺底上會太淡。
@@ -73,5 +73,9 @@ herdr-app do layout.switch '{"name":"husky"}'
   端點讀 `~/.config/music/lyrics.json` 的 `{"endpoint": "http://host:3300"}`（與 MusicTUI 共用）；沒設定就顯示提示，不會退回公開的 lrclib.net。
   曲目與位置取自音樂 daemon 的 `state.json`；面板關著時完全不讀檔、不連網。每首歌每次執行只查一次，連不上的 15 秒後重試。
   用 `curl` 連線（Herdr 的 `fetch` 沒有逾時設定），句子過長會截斷，不換行。
+- 右側分頁列的 Note 按鈕（紙張圖示）打開筆記面板（`husky-notes`）：一份 markdown 筆記，存在本機 `~/.config/herdr-app/data/theme-notes/note.md`，重開 app 或重開機都還在。
+  標題列的 Edit／Preview 切換：Edit 是多行輸入框，Preview 用內建 markdown 渲染；有內容時開啟先看 Preview，空的直接進 Edit。
+  輸入後每秒檢查一次，內容與磁碟不同才原子寫入；輸入框失焦、切到 Preview 也立刻寫。讀檔失敗（例如超過 1 MiB）時不會存檔，避免空白內容蓋掉原筆記。
+  Husky 與 Malfoid 共用同一個檔案，切換 theme 筆記不會消失。檔案被別的程式改過時，下一輪以面板內容覆蓋（後寫者勝）。
 - 工作姿態由時間決定，不代表 agent 實際在做什麼；沒有獨立 Thinking 狀態或逐格動畫。
 - 上游程式碼來源、授權及素材範圍見 `NOTICE.md`。

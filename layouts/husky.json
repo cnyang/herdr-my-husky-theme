@@ -185,6 +185,13 @@
                       "content": {
                         "mod": "husky-lyrics"
                       }
+                    },
+                    {
+                      "id": "notes",
+                      "type": "block",
+                      "content": {
+                        "mod": "husky-notes"
+                      }
                     }
                   ],
                   "active": "files"
