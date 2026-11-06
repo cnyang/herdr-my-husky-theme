@@ -123,7 +123,7 @@
                     "position": "top"
                   },
                   "background": {
-                    "image": "mods/husky-chrome/terminal-background.png",
+                    "image": "mods/husky-chrome/terminal-background-v4.png",
                     "fit": "cover"
                   },
                   "border": {

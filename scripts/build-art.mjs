@@ -44,6 +44,24 @@ function portrait(file, [x, y, size], ...targets) {
     "-background", CARD, "-flatten", "-resize", "256x256", "-strip", out(target));
 }
 
+// 終端背景以 cover 置中裁切，窗格比原圖窄時兩側被切，靠右的狗會被裁到。
+// 解法：在右側補 160px（1914 → 2074），讓狗往左移約 80px、不必置中。
+// 補的區域：先鋪「右緣 24 欄平均色、垂直模糊」的底色（與原圖右緣色調連續、無條紋），
+// 再疊上原圖左側霧面（無狗），用 160px 漸層慢慢過渡；最後把接縫帶局部模糊遮掉細節差。
+// ponytail: 靠右的狗仍有下限，窗格長寬比低於約 1.1 時還是會被切；要更窄就再加大補寬。
+function terminalBackground() {
+  const src = art("terminal-background.png"), H = 822, X = 1914, EXTRA = 160, W = X + EXTRA, RAMP = 160;
+  magick(src, "-background", "none", "-gravity", "northwest", "-extent", `${W}x${H}`,
+    "(", src, "-crop", `24x${H}+${X - 24}+0`, "+repage", "-filter", "box", "-resize", `1x${H}!`, "-blur", "0x40",
+      "-filter", "point", "-resize", `${EXTRA}x${H}!`, ")", "-geometry", `+${X}+0`, "-composite",
+    "(", src, "-crop", `${EXTRA}x${H}+0+0`, "+repage", "-alpha", "set", "-channel", "A", "-fx", `i<${RAMP}?i/${RAMP}:1`, "+channel", ")",
+    "-geometry", `+${X}+0`, "-composite", "-alpha", "off",
+    "(", "+clone", "-blur", "0x14",
+      "(", "-size", `${W}x${H}`, "xc:black", "-fill", "white", "-draw", `rectangle ${X - 2},0 ${X + 30},${H}`, "-blur", "0x8", ")",
+      "-geometry", "+0+0", "-alpha", "off", "-compose", "CopyOpacity", "-composite", ")",
+    "-compose", "over", "-composite", ...DIM, "-strip", out("husky-chrome/terminal-background-v4.png"));
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   strip("meatball-rest.png", "meatball", ["idle", "blocked", "done"]);
   strip("meatball-working.png", "meatball", ["working-hauling", "working-digging", "working-tracking"]);
@@ -53,7 +71,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   grid("panel-icons.png", ["crate", "tracks", "satchel", "signpost"].map(n => `husky-spaces/art/${n}.png`));
   magick(art("brand-emblem.png"), CLEAN, "-resize", "248x248", "-background", "none", "-gravity", "center", "-extent", "256x256", FINISH, out("husky-chrome/brand-emblem.png"));
   magick(art("sidebar.png"), "-gravity", "center", "-crop", "653x1672+0+0", "+repage", "-resize", "400x1024!", ...DIM, "-fill", THEME_BG, "-colorize", "75", "-strip", out("husky-chrome/sidebar-v4.png"));
-  magick(art("terminal-background.png"), ...DIM, "-strip", out("husky-chrome/terminal-background.png"));
+  terminalBackground();
   // 頭像座標是人工框的頭部；一三五七九為肉丸，其餘為樂晴。
   const tab = n => `husky-tabs/art/portrait-${String(n).padStart(2, "0")}.png`;
   portrait("meatball-rest.png", [170, 45, 300], tab(1), "husky-agents/art/meatball.png");
