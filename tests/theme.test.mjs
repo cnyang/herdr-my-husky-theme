@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
-import { STATES, DOGS, assignDogs, portraitPath, stateFor, spritePath, nextSidebarWidth, frameColor, iconKind, statusText, phaseOffset, ACTION_MS, TICK_MS, SIDEBAR_WIDTH } from "../mods/husky-agents/lib.js";
+import { STATES, DOGS, assignDogs, portraitPath, stateFor, spritePath, nextSidebarWidth, frameColor, iconKind, iconSrc, statusText, phaseOffset, ACTION_MS, TICK_MS, SIDEBAR_WIDTH } from "../mods/husky-agents/lib.js";
 import { PORTRAITS, assignPortraits } from "../mods/husky-tabs/portraits.js";
 import { badgePath } from "../mods/husky-spaces/badges.js";
 import { lowestColumn } from "../scripts/build-art.mjs";
@@ -172,6 +172,15 @@ test("agent cards draw the program icon the way its table entry says", () => {
   assert.equal(iconKind({ icon: "icons/logo.svg", tint: false }), "image");
   assert.equal(iconKind({ icon: null, tint: true }), null);
   assert.equal(iconKind(undefined), null);
+});
+
+test("codex card uses the bundled glyph without Herdr's white tile; other programs keep Herdr's icon", () => {
+  const file = `mods/husky-agents/art/codex.svg`;
+  assert.equal(iconSrc({ key: "codex", icon: "icons/codex.svg" }), file);
+  assert.doesNotMatch(readFileSync(join(root, file), "utf8"), /#fff/i);
+  assert.equal(iconSrc({ key: "claude", icon: "icons/claude.svg" }), "icons/claude.svg");
+  assert.equal(iconSrc({ key: "toString", icon: null }), null);
+  assert.equal(iconSrc(undefined), null);
 });
 
 test("Watch panel is gone: no mod, layout node, button or leftover files", () => {
