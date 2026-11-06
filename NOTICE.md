@@ -18,8 +18,7 @@ by the theme owner. Those files and their derivatives under `mods/` are outside
 the code license.
 
 The themed Files and Changes panels are modified copies of Herdr's built-in
-modules. The themed Inbox panel is a modified copy of the locally installed
-Traveler Inbox. The themed Git Graph is a modified copy of the locally installed
+modules. The themed Git Graph is a modified copy of the locally installed
 https://github.com/rabeeh-ta/herdr-git-graph; it retains its upstream terms and
 bundled Lucide icon notice. These copies change asset paths and the panel root
 background only. Git Graph dialogs and shared settings continue to use the

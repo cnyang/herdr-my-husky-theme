@@ -9,7 +9,7 @@ Herdr 原生桌面主題，主角是兩隻哈士奇：肉丸（黑灰白、雙�
 - 每個 agent 固定配一隻狗，以位址存在 localStorage；新 agent 分給目前較少的那隻。
 - 休息閉眼、等待歪頭配琥珀燈籠、完成吐舌；工作中每 3 秒輪替「拉雪橇」「挖雪中」「追蹤中」，文字與姿態同步，多個 agent 之間互相錯開。
 - 分頁從 10 張雙犬頭像隨機配圖，按 Tab ID 保存，10 張用完才重複。
-- Files／Changes／Watch／Git 面板空狀態使用 72px 全彩圖示：卷軸箱、掌印、郵包雪橇、路標。
+- Files／Changes／Git 面板空狀態使用 72px 全彩圖示：卷軸箱、掌印、路標。
 - 終端背景為寬幅雪原，兩隻狗在右側，以 `cover` 滿版顯示；終端底色不透明度為 0.6。
 
 | 用途 | 色碼 |
@@ -36,7 +36,7 @@ for m in mods/husky-*; do herdr-app check "$PWD/$m"; done
 
 ## 安裝與切換
 
-這版配合本機 Herdr 0.1.12，依賴已安裝的 `inbox`、`git-graph`，
+這版配合本機 Herdr 0.1.13，依賴已安裝的 `git-graph`，
 以及 Herdr 內建的 pane、files、changes、workspace-status、menu、new-menu、picker、machine-add、workspace-chrome。
 Files 面板使用隨附的 `mods/file-icons`（來自 herdr-mods，Material Icon Theme 圖示）：機器上已有就保留，`--update` 才覆蓋。
 
@@ -45,7 +45,7 @@ node scripts/install.mjs
 herdr-app do layout.switch '{"name":"husky"}'
 ```
 
-安裝只新增十一個 `husky-*` 模組、layout 與 theme，撞名就停止；更新用 `node scripts/install.mjs --update`。
+安裝只新增十個 `husky-*` 模組、layout 與 theme，撞名就停止；更新用 `node scripts/install.mjs --update`。
 其他 layout 可從 Settings 或 `ctrl-shift-l` 選擇。
 
 程式寫死給深色背景的顏色（Claude Code 深色主題、starship 的 Dracula 色）在淺底上會太淡。
@@ -64,7 +64,6 @@ herdr-app do layout.switch '{"name":"husky"}'
 
 - Spaces 沿用 Traveler 的 `git status`、`git rev-parse` 和 `hc machine ls` 查詢。
 - Space 徽章按顯示順序循環：肉球 → 雪橇 → 月山 → 雪花。主機標題與工作樹子列不計入。
-- Watch 面板監看 `~/Downloads/` 第一層已下載完的檔案（內部 id 仍是 `inbox`）。
 - 側欄底部的 Apple Music 區塊（`husky-music`，僅 macOS）：沒歌時高度 0，有歌時長出曲名、時間、進度條與上一首／倒退 10 秒／播放暫停／快轉 10 秒／下一首。
   一個長駐 `osascript` daemon（herdr-core 終端 `hpm-<雜湊>`）每秒讀 Music 並寫 `data/husky-music/state.json`，按鈕寫 `cmd.json`。
   第一次會跳出「允許控制 Music」的系統授權；若拒絕，區塊改顯示提示列，到系統設定 > 隱私權與安全性 > 自動化開啟。側欄收成窄條時區塊自動縮為 0。

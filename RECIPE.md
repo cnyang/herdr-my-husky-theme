@@ -23,12 +23,12 @@ Tab 從 10 張頭像隨機配圖，以 Tab ID 保存。
 
 `layouts/husky.json` 的 root row 包含 sidebar column 與 work column，
 sidebar 使用 `husky-chrome`、`husky-spaces`、`husky-agents`；work 使用 `husky-tabs`、
-Herdr 內建 pane／workspace-status，隨附的 mods/file-icons（Files 面板，底色透明度由 layout 的 props.alpha 決定，這裡是 00），以及 husky-changes／husky-inbox／husky-git-graph。
+Herdr 內建 pane／workspace-status，隨附的 mods/file-icons（Files 面板，底色透明度由 layout 的 props.alpha 決定，這裡是 00），以及 husky-changes／husky-git-graph。
 側欄與面板共用 `husky-chrome/sidebar-v4.png`。美術由 `scripts/build-art.mjs` 從 `artwork/` 產生。
 
 ## Watch out
 
-此版本以本機 Herdr 0.1.12 為準，需要已安裝的 inbox 與 git-graph。
+此版本以本機 Herdr 0.1.13 為準，需要已安裝的 git-graph。
 肉丸素材不可水平翻轉，否則雙色眼會左右對調。
 模組不能匯入自己資料夾以外的 JavaScript；不要跨模組共用 lib。
 所有安裝路徑獨立，撞名時停止，既有 layout 保留可切回。
@@ -36,6 +36,6 @@ Herdr 內建 pane／workspace-status，隨附的 mods/file-icons（Files 面板�
 ## Done when
 
 1. `node --test` 與 `node scripts/lint.mjs` 通過。
-2. 十一個 `herdr-app check` 通過。
+2. 十個 `herdr-app check` 通過。
 3. 切換後 `herdr-app status` 沒有新模組錯誤，截圖可見兩隻狗、徽章與淺色面板。
 4. 終端文字疊在雪原與狗身上仍清楚可讀。
