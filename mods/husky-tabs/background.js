@@ -1,5 +1,12 @@
 // 中央 pane 背景圖輪播。新圖放進 mods/husky-chrome/ 後把路徑加進清單；只有一張時不換圖。
-export const BACKGROUNDS = ["mods/husky-chrome/terminal-background-v4.png"];
+export const BACKGROUNDS = [
+  "mods/husky-chrome/terminal-background-v4.png",
+  "mods/husky-chrome/bg-sunrise.png",
+  "mods/husky-chrome/bg-lake.png",
+  "mods/husky-chrome/bg-forest.png",
+  "mods/husky-chrome/bg-cabin.png",
+  "mods/husky-chrome/bg-sled.png",
+];
 export const ROTATE_MS = 10 * 60 * 1000;
 
 // 回傳清單中接在 current 後面的圖（到尾端回到第一張）；current 不在清單
