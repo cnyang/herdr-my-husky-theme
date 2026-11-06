@@ -10,6 +10,7 @@ import { PORTRAITS, assignPortraits } from "../mods/husky-tabs/portraits.js";
 import { badgePath } from "../mods/husky-spaces/badges.js";
 import { lowestColumn } from "../scripts/build-art.mjs";
 import { clock, hash, position, blockHeight } from "../mods/husky-music/lib.js";
+import { BACKGROUNDS, nextImage } from "../mods/husky-tabs/background.js";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const json = path => JSON.parse(readFileSync(join(root, path), "utf8"));
@@ -179,6 +180,17 @@ test("Watch panel is gone: no mod, layout node, button or leftover files", () =>
   assert.ok(!JSON.stringify(json("layouts/husky.json")).includes("inbox"));
   const tabs = readFileSync(join(root, "mods/husky-tabs/main.js"), "utf8");
   assert.ok(!/inbox|watchFolder|Downloads/.test(tabs));
+});
+
+test("background rotation walks the list, wraps, and restarts from the first when the current image is unknown", () => {
+  const list = ["a", "b", "c"];
+  assert.equal(nextImage("a", list), "b");
+  assert.equal(nextImage("c", list), "a");
+  assert.equal(nextImage("x", list), "a");
+  assert.equal(nextImage("a", ["a"]), null);
+  for (const path of BACKGROUNDS) assert.ok(existsSync(join(root, path)), path);
+  const find = (node, id) => node.id === id ? node : (node.children ?? []).map(child => find(child, id)).find(Boolean);
+  assert.ok(BACKGROUNDS.includes(find(json("layouts/husky.json"), "main").content.pane.background.image), "layout default must be in the rotation list");
 });
 
 test("each panel shows its trail icon in full color when empty, never over an error", () => {
