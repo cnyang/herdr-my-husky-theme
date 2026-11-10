@@ -6,6 +6,7 @@ Herdr 原生桌面主題，主角是兩隻哈士奇：肉丸（黑灰白、雙�
 ## 畫面與狀態
 
 - 190px 側欄、60px Space 列搭配 48px 徽章（肉球、雪橇、月山、雪花），以及四態角色卡；收合時改用頭像。
+- Islands 浮動卡片（參考 CodeyPacker/herdr-mods 的 islands）：畫布留 12px 邊、卡片間距 12px；Brand、Spaces、Agents、設定列、狀態列、右側面板各自是 14px 圓角、1px 邊框的獨立卡片；終端 pane 的底圖與終端底色由 Herdr 原生繪製、mod 蓋不住方角，所以 pane 圓角縮為 8px。分頁列無底色、分頁與按鈕為膠囊。Herdr 不會依節點圓角裁切 mod 的滿版底色，所以內建 `pane`、`workspace-status` 改用本主題的 `husky-pane`、`husky-status` clone；節點的底圖不吃 `radius`，所以各 mod 另外用 canvas 色粗框蓋住圖片的四個方角；Apple Music 區塊是獨立卡片，卡片前的 12px 空隙由 `music-gap` 節點跟著縮放，沒歌時不留白。macOS 紅黃綠按鈕位置由 root 的 `traffic_lights` 決定（以 zoom 1.2 對準 brand 卡片中心）。
 - 每個 agent 固定配一隻狗，以位址存在 localStorage；新 agent 分給目前較少的那隻。
 - 休息閉眼、等待歪頭配琥珀燈籠、完成吐舌；工作中每 3 秒輪替「拉雪橇」「挖雪中」「追蹤中」，文字與姿態同步，多個 agent 之間互相錯開。
 - 分頁從 10 張雙犬頭像隨機配圖，按 Tab ID 保存，10 張用完才重複。
@@ -45,7 +46,7 @@ node scripts/install.mjs
 herdr-app do layout.switch '{"name":"husky"}'
 ```
 
-安裝只新增十個 `husky-*` 模組、layout 與 theme，撞名就停止；更新用 `node scripts/install.mjs --update`。
+安裝只新增十二個 `husky-*` 模組、layout 與 theme，撞名就停止；更新用 `node scripts/install.mjs --update`。
 其他 layout 可從 Settings 或 `ctrl-shift-l` 選擇。
 
 程式寫死給深色背景的顏色（Claude Code 深色主題、starship 的 Dracula 色）在淺底上會太淡。

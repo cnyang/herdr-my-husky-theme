@@ -36,6 +36,6 @@ Herdr 內建 pane／workspace-status，隨附的 mods/file-icons（Files 面板�
 ## Done when
 
 1. `node --test` 與 `node scripts/lint.mjs` 通過。
-2. 十個 `herdr-app check` 通過。
+2. 十二個 `herdr-app check` 通過。
 3. 切換後 `herdr-app status` 沒有新模組錯誤，截圖可見兩隻狗、徽章與淺色面板。
 4. 終端文字疊在雪原與狗身上仍清楚可讀。
