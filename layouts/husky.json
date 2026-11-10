@@ -185,6 +185,13 @@
                       "content": {
                         "mod": "husky-notes"
                       }
+                    },
+                    {
+                      "id": "calendar",
+                      "type": "block",
+                      "content": {
+                        "mod": "husky-calendar"
+                      }
                     }
                   ],
                   "active": "files"

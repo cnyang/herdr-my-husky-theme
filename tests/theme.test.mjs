@@ -217,7 +217,7 @@ test("each panel shows its trail icon in full color when empty, never over an er
 
 test("panel buttons use bold 24px icons drawn for small sizes", () => {
   const tabs = readFileSync(join(root, "mods/husky-tabs/main.js"), "utf8");
-  for (const [id, label] of Object.entries({ files: "Files", changes: "Changes", graph: "Git", lyrics: "Lyrics", notes: "Note" })) {
+  for (const [id, label] of Object.entries({ files: "Files", changes: "Changes", graph: "Git", lyrics: "Lyrics", notes: "Note", calendar: "Calendar" })) {
     const path = `mods/husky-tabs/art/panel-${id}.svg`;
     assert.ok(tabs.includes(`panelButton("${id}", "${label}", "${path}")`), id);
     const icon = readFileSync(join(root, path), "utf8");
@@ -293,7 +293,7 @@ test("installer refuses missing dependencies and name collisions before copying"
     assert.equal(result.status, 0, result.stderr);
     assert.ok(existsSync(join(target, "themes/husky.json")));
     assert.ok(existsSync(join(target, "mods/file-icons/icons/folder.svg")));
-    for (const name of ["agents", "tabs", "spaces", "chrome", "files", "changes", "git-graph", "music", "lyrics", "notes"]) {
+    for (const name of ["agents", "tabs", "spaces", "chrome", "files", "changes", "git-graph", "music", "lyrics", "notes", "calendar"]) {
       assert.ok(existsSync(join(target, `mods/husky-${name}/main.js`)), name);
     }
     const file = join(target, "mods/husky-agents/main.js");

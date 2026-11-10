@@ -78,5 +78,10 @@ herdr-app do layout.switch '{"name":"husky"}'
   標題列的 Edit／Preview 切換：Edit 是多行輸入框，Preview 用內建 markdown 渲染；有內容時開啟先看 Preview，空的直接進 Edit。
   輸入後每秒檢查一次，內容與磁碟不同才原子寫入；輸入框失焦、切到 Preview 也立刻寫。讀檔失敗（例如超過 1 MiB）時不會存檔，避免空白內容蓋掉原筆記。
   Husky 與 Malfoid 共用同一個檔案，切換 theme 筆記不會消失。檔案被別的程式改過時，下一輪以面板內容覆蓋（後寫者勝）。
+- 右側分頁列的 Calendar 按鈕（日曆圖示）打開日曆面板（`husky-calendar`）：月曆格加上選定日的行程，唯讀同步 Google 日曆。
+  在 `~/.config/herdr-app/data/theme-calendar/config.json` 寫入 `{ "urls": ["https://calendar.google.com/calendar/ical/…/basic.ics"] }`
+  （Google 日曆 → 設定 → 選日曆 → 整合日曆 →「iCal 格式的私密網址」，可放多個）。
+  依日曆分顏色：沒指定時依順序套 theme 的 working／blocked／done／unknown 色；要指定就把該項寫成 `{ "url": "…", "color": "#RRGGBB" }`。私密網址等同密碼，只放本機，勿提交。
+  面板開著時每 10 分鐘重抓，↻ 立即重抓；三個 theme 共用同一份設定。重複事件只支援 FREQ/INTERVAL/COUNT/UNTIL 與每週 BYDAY。
 - 工作姿態由時間決定，不代表 agent 實際在做什麼；沒有獨立 Thinking 狀態或逐格動畫。
 - 上游程式碼來源、授權及素材範圍見 `NOTICE.md`。

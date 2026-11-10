@@ -8,7 +8,7 @@ const target = process.env.HERDR_APP_HOME || join(homedir(), ".config", "herdr-a
 const files = [
   "mods/husky-agents", "mods/husky-tabs", "mods/husky-spaces", "mods/husky-chrome",
   "mods/husky-files", "mods/husky-changes", "mods/husky-git-graph",
-  "mods/husky-music", "mods/husky-lyrics", "mods/husky-notes", "mods/file-icons", "layouts/husky.json", "layouts/husky.svg", "themes/husky.json",
+  "mods/husky-music", "mods/husky-lyrics", "mods/husky-notes", "mods/husky-calendar", "mods/file-icons", "layouts/husky.json", "layouts/husky.svg", "themes/husky.json",
 ];
 const update = process.argv.includes("--update");
 // file-icons 與其他主題共用：已存在就保留（不算撞名），只有 --update 才覆蓋
