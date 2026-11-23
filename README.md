@@ -6,7 +6,7 @@ Herdr 原生桌面主題，主角是兩隻哈士奇：肉丸（黑灰白、雙�
 ## 畫面與狀態
 
 - 190px 側欄、60px Space 列搭配 48px 徽章（肉球、雪橇、月山、雪花），以及四態角色卡；收合時改用頭像。
-- Islands 浮動卡片（參考 CodeyPacker/herdr-mods 的 islands）：畫布留 12px 邊、卡片間距 12px；Brand、Spaces、Agents、設定列、狀態列、右側面板各自是 14px 圓角、1px 邊框的獨立卡片；終端 pane 的底圖與終端底色由 Herdr 原生繪製、mod 蓋不住方角，所以 pane 圓角縮為 8px。分頁列無底色、分頁與按鈕為膠囊。Herdr 不會依節點圓角裁切 mod 的滿版底色，所以內建 `pane`、`workspace-status` 改用本主題的 `husky-pane`、`husky-status` clone；節點的底圖不吃 `radius`，所以各 mod 另外用 canvas 色粗框蓋住圖片的四個方角；Apple Music 控制列放在底部狀態列右側（與狀態列同一張卡片，`music` 節點寬度隨有無曲目在 0 與 460px 間切換，沒歌時不佔位）。macOS 紅黃綠按鈕位置由 root 的 `traffic_lights` 決定（以 zoom 1.2 對準 brand 卡片中心）。
+- Islands 浮動卡片（參考 CodeyPacker/herdr-mods 的 islands）：畫布留 12px 邊、卡片間距 12px；Brand、Spaces、Agents、設定列、狀態列、右側面板各自是 14px 圓角、1px 邊框的獨立卡片；終端 pane 的底圖與終端底色由 Herdr 原生繪製、mod 蓋不住方角，所以 pane 圓角縮為 8px。分頁列無底色、分頁與按鈕為膠囊。Herdr 不會依節點圓角裁切 mod 的滿版底色，所以內建 `pane`、`workspace-status` 改用本主題的 `husky-pane`、`husky-status` clone；節點的底圖不吃 `radius`，所以各 mod 另外用 canvas 色粗框蓋住圖片的四個方角；Apple Music 控制列放在底部狀態列右側（與狀態列同一張卡片，`music` 節點固定 460px 寬，沒歌時顯示「Music 未播放」佔位）。macOS 紅黃綠按鈕位置由 root 的 `traffic_lights` 決定（以 zoom 1.2 對準 brand 卡片中心）。
 - 每個 agent 固定配一隻狗，以位址存在 localStorage；新 agent 分給目前較少的那隻。
 - 休息閉眼、等待歪頭配琥珀燈籠、完成吐舌；工作中每 3 秒輪替「拉雪橇」「挖雪中」「追蹤中」，文字與姿態同步，多個 agent 之間互相錯開。
 - 分頁從 10 張雙犬頭像隨機配圖，按 Tab ID 保存，10 張用完才重複。
@@ -65,7 +65,7 @@ herdr-app do layout.switch '{"name":"husky"}'
 
 - Spaces 沿用 Traveler 的 `git status`、`git rev-parse` 和 `hc machine ls` 查詢。
 - Space 徽章按顯示順序循環：肉球 → 雪橇 → 月山 → 雪花。主機標題與工作樹子列不計入。
-- 側欄底部的 Apple Music 區塊（`husky-music`，僅 macOS）：沒歌時高度 0，有歌時長出曲名、時間、進度條與上一首／倒退 10 秒／播放暫停／快轉 10 秒／下一首。
+- 側欄底部的 Apple Music 區塊（`husky-music`，僅 macOS）：固定在狀態列右下角；沒歌時顯示「Music 未播放」，有歌時顯示曲名、時間與上一首／倒退 10 秒／播放暫停／快轉 10 秒／下一首。
   一個長駐 `osascript` daemon（herdr-core 終端 `hpm-<雜湊>`）每秒讀 Music 並寫 `data/husky-music/state.json`，按鈕寫 `cmd.json`。
   第一次會跳出「允許控制 Music」的系統授權；若拒絕，區塊改顯示提示列，到系統設定 > 隱私權與安全性 > 自動化開啟。側欄收成窄條時區塊自動縮為 0。
 - 中央 pane 背景圖可輪播：把新圖放進 `mods/husky-chrome/`，路徑加進 `mods/husky-tabs/background.js` 的 `BACKGROUNDS`（預設一張，不換）；每 `ROTATE_MS`（10 分鐘）換下一張。
