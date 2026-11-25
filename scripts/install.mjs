@@ -7,13 +7,13 @@ const root = fileURLToPath(new URL("../", import.meta.url));
 const target = process.env.HERDR_APP_HOME || join(homedir(), ".config", "herdr-app");
 const files = [
   "mods/husky-agents", "mods/husky-tabs", "mods/husky-spaces", "mods/husky-chrome",
-  "mods/husky-files", "mods/husky-changes", "mods/husky-git-graph",
+  "mods/husky-files",
   "mods/husky-music", "mods/husky-lyrics", "mods/husky-notes", "mods/husky-calendar", "mods/husky-pane", "mods/husky-status", "mods/file-icons", "layouts/husky.json", "layouts/husky.svg", "themes/husky.json",
 ];
 const update = process.argv.includes("--update");
 // file-icons 與其他主題共用：已存在就保留（不算撞名），只有 --update 才覆蓋
 const shared = ["mods/file-icons"];
-const dependencies = ["files", "changes", "menu", "new-menu", "picker", "machine-add", "workspace-chrome", "git-graph"];
+const dependencies = ["files", "menu", "new-menu", "picker", "machine-add", "workspace-chrome"];
 
 // 完整預檢後才複製；撞名預設停止，避免覆蓋個人主題或設定。
 // --update 只覆寫上面列出的 husky 路徑，供已安裝者更新；來源已刪的檔案不會移除。

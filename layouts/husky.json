@@ -194,20 +194,6 @@
                       }
                     },
                     {
-                      "id": "changes",
-                      "type": "block",
-                      "content": {
-                        "mod": "husky-changes"
-                      }
-                    },
-                    {
-                      "id": "graph",
-                      "type": "block",
-                      "content": {
-                        "mod": "husky-git-graph"
-                      }
-                    },
-                    {
                       "id": "lyrics",
                       "type": "block",
                       "content": {

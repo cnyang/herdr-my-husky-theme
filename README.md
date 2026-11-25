@@ -10,7 +10,7 @@ Herdr 原生桌面主題，主角是兩隻哈士奇：肉丸（黑灰白、雙�
 - 每個 agent 固定配一隻狗，以位址存在 localStorage；新 agent 分給目前較少的那隻。
 - 休息閉眼、等待歪頭配琥珀燈籠、完成吐舌；工作中每 3 秒輪替「拉雪橇」「挖雪中」「追蹤中」，文字與姿態同步，多個 agent 之間互相錯開。
 - 分頁從 10 張雙犬頭像隨機配圖，按 Tab ID 保存，10 張用完才重複。
-- Files／Changes／Git 面板空狀態使用 72px 全彩圖示：卷軸箱、掌印、路標。
+- Files 面板空狀態使用 72px 全彩圖示：卷軸箱。
 - 終端背景為寬幅雪原，兩隻狗在右側，以 `cover` 滿版顯示；終端底色不透明度為 0.6。
 
 | 用途 | 色碼 |
@@ -37,8 +37,7 @@ for m in mods/husky-*; do herdr-app check "$PWD/$m"; done
 
 ## 安裝與切換
 
-這版配合本機 Herdr 0.1.13，依賴已安裝的 `git-graph`，
-以及 Herdr 內建的 pane、files、changes、workspace-status、menu、new-menu、picker、machine-add、workspace-chrome。
+這版配合本機 Herdr 0.1.13，依賴 Herdr 內建的 pane、files、workspace-status、menu、new-menu、picker、machine-add、workspace-chrome。
 Files 面板使用隨附的 `mods/file-icons`（來自 herdr-mods，Material Icon Theme 圖示）：機器上已有就保留，`--update` 才覆蓋。
 
 ```sh
